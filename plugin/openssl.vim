@@ -100,12 +100,7 @@ function! s:OpenSSLReadPost()
     if l:cipher == "aes"
         let l:cipher = "aes-256-cbc"
     endif
-    if l:cipher == "bfa"
-        let l:cipher = "bf"
-        let l:expr = "0,$!openssl " . l:cipher . " -d -a -salt"
-    else
-        let l:expr = "0,$!openssl " . l:cipher . " -d -salt"
-    endif
+    let l:expr = "0,$!openssl " . l:cipher . " -d -pbkdf2 -a -salt"
 
     silent! execute l:expr
     if v:shell_error
@@ -142,12 +137,7 @@ function! s:OpenSSLWritePre()
     if l:cipher == "aes"
         let l:cipher = "aes-256-cbc"
     endif
-    if l:cipher == "bfa"
-        let l:cipher = "bf"
-        let l:expr = "0,$!openssl " . l:cipher . " -e -a -salt"
-    else
-        let l:expr = "0,$!openssl " . l:cipher . " -e -salt"
-    endif
+    let l:expr = "0,$!openssl " . l:cipher . " -e -a -pbkdf2 -salt"
 
     silent! execute l:expr
     if v:shell_error
