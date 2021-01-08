@@ -85,6 +85,7 @@ if exists("openssl_encrypted_loaded")
     finish
 endif
 let openssl_encrypted_loaded = 1
+let openssl_bin = "/usr/local/opt/libressl/bin/openssl "
 autocmd!
 
 function! s:OpenSSLReadPre()
@@ -100,7 +101,7 @@ function! s:OpenSSLReadPost()
     if l:cipher == "aes"
         let l:cipher = "aes-256-cbc"
     endif
-    let l:expr = "0,$!openssl " . l:cipher . " -d -pbkdf2 -a -salt"
+    let l:expr = "0,$!" . g:openssl_bin . l:cipher . " -d -pbkdf2 -a -salt"
 
     silent! execute l:expr
     if v:shell_error
@@ -137,7 +138,7 @@ function! s:OpenSSLWritePre()
     if l:cipher == "aes"
         let l:cipher = "aes-256-cbc"
     endif
-    let l:expr = "0,$!openssl " . l:cipher . " -e -a -pbkdf2 -salt"
+    let l:expr = "0,$!" . g:openssl_bin . l:cipher . " -e -a -pbkdf2 -salt"
 
     silent! execute l:expr
     if v:shell_error
