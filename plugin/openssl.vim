@@ -85,7 +85,7 @@ if exists("openssl_encrypted_loaded")
     finish
 endif
 let openssl_encrypted_loaded = 1
-let openssl_bin = "/usr/local/opt/libressl/bin/openssl "
+let openssl_bin = "/opt/homebrew/opt/libressl/bin/openssl "
 autocmd!
 
 function! s:OpenSSLReadPre()
